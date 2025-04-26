@@ -7,21 +7,44 @@ use App\Models\User;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Facades\Filament;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
+use Illuminate\Support\Facades\Hash;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
-use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    public static function canViewAny(): bool
+    {
+        return Filament::auth()->user()?->can('view_any_user');
+    }
+
+    public static function canCreate(): bool
+    {
+        return Filament::auth()->user()?->can('create_user');
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return Filament::auth()->user()?->can('update_user');
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return Filament::auth()->user()?->can('delete_user');
+    }
 
     public static function form(Form $form): Form
     {
@@ -30,20 +53,15 @@ class UserResource extends Resource
                 Card::make()
                     ->schema([
                         TextInput::make('name')->required(),
-                    ])
-                    ->columns(2),
-                Card::make()
-                    ->schema([
                         TextInput::make('email')
                             ->email()
                             ->required(),
-                    ])
-                    ->columns(2),
-                Card::make()
-                    ->schema([
                         TextInput::make('password')
                             ->password()
                             ->required(),
+                        Select::make('roles')
+                            ->label('Role Akses')
+                            ->relationship('roles', 'name')
                     ])
                     ->columns(2),
             ]);
@@ -61,6 +79,8 @@ class UserResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->label('Nama'),
+                TextColumn::make('roles.name')
+                    ->label('Hak akses'),
                 TextColumn::make('email')
                     ->label('Alamat email'),
                 TextColumn::make('created_at')

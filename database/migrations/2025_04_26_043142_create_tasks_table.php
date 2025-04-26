@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->enum('status', ['To Do', 'In Progress', 'Done', 'Deadline']);
             ///
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('assigned_to')->constrained('users')->onDelete('cascade');
             $table->foreignId('project_id')->constrained('projects');
         });
     }

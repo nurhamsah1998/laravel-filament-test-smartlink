@@ -61,7 +61,7 @@
             "@composer install",
             "@php artisan migrate --force",
             "@php artisan db:seed --force",
-            "@php artisan shield:install || exit 0"
+            "@php artisan shield:install smart --tenant --generate-relationships || exit 0"
         ]
     },
     "extra": {

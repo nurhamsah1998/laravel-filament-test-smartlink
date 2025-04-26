@@ -8,9 +8,11 @@ use App\Models\User;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Facades\Filament;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
+use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\TaskResource\Pages;
@@ -23,6 +25,26 @@ class TaskResource extends Resource
     protected static bool $shouldRegisterNavigation = false;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function canViewAny(): bool
+    {
+        return Filament::auth()->user()?->can('view_any_task');
+    }
+
+    public static function canCreate(): bool
+    {
+        return Filament::auth()->user()?->can('create_task');
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return Filament::auth()->user()?->can('update_task');
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return Filament::auth()->user()?->can('delete_task');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -30,12 +52,13 @@ class TaskResource extends Resource
                 Card::make()
                     ->schema([
                         TextInput::make('name')->required(),
+                        Select::make('assigned_to')
+                            ->label('Ditugaskan Ke')
+                            ->options(User::all()->pluck('name', 'id'))
+                            ->searchable(),
                     ])
                     ->columns(2),
-                Select::make('user_id')
-                    ->label('Assign to')
-                    ->options(User::all()->pluck('name', 'id'))
-                    ->searchable(),
+
             ]);
     }
 
