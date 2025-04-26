@@ -20,15 +20,8 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Smart',
             'email' => 'test@smartlink.test',
+            'is_admin' => true,
             'password' => Hash::make('12345678'),
         ]);
-
-        $permissions = ["create", "update", "delete", 'read'];
-
-        foreach ($permissions as $item) {
-            Permission::create([
-                "name" => $item
-            ]);
-        }
     }
 }
