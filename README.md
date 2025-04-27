@@ -14,7 +14,7 @@ Tidak ada proses register untuk menambah user baru didalam aplikasi ini, penamba
 
 
 # Cara Menjalankan Aplikasi
--   buat dulu database pada mysql dengan nama "**task-management-smartlink**". berikut environment (sudah saya include ke repositorinya & tidak perlu setting tambahan lagi)
+-   pastikan server mysql dan apache jalan sesuai dengan gambar diatas lalu buat dulu database pada mysql dengan nama "**task-management-smartlink**". berikut environment (sudah saya include ke repositorinya & tidak perlu setting tambahan lagi)
 
         DB_CONNECTION=mysql
         DB_HOST=127.0.0.1
