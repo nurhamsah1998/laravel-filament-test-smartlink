@@ -55,7 +55,7 @@ class UserResource extends Resource
                         TextInput::make('name')->required(),
                         TextInput::make('email')
                             ->email()
-                            ->required(),
+                            ->required()->unique(ignorable: fn($record) => $record),
                         TextInput::make('password')
                             ->password()
                             ->required(),
@@ -82,7 +82,7 @@ class UserResource extends Resource
                 TextColumn::make('roles.name')
                     ->label('Hak akses'),
                 TextColumn::make('email')
-                    ->label('Alamat email'),
+                    ->label('Alamat email')->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
             ])
@@ -91,6 +91,7 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

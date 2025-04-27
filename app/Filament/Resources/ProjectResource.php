@@ -66,7 +66,7 @@ class ProjectResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Nama Project'),
+                    ->label('Nama Project')->searchable(),
                 TextColumn::make('tasks_count')->counts('tasks')
                     ->label('Total task'),
                 TextColumn::make('created_at')
@@ -77,6 +77,7 @@ class ProjectResource extends Resource
             ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

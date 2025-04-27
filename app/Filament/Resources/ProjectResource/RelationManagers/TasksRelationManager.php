@@ -9,37 +9,38 @@ use Filament\Forms\Form;
 use App\Models\Permission;
 use Filament\Tables\Table;
 use Filament\Facades\Filament;
+use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Resources\Resource;
 use Filament\Resources\RelationManagers\RelationManager;
 
 class TasksRelationManager extends RelationManager
 {
     protected static string $relationship = 'tasks';
 
-    // public static function canViewAny(): bool
-    // {
-    //     return Filament::auth()->user()?->can('view_any_project');
-    // }
+    public static function canViewAny(): bool
+    {
+        return Filament::auth()->user()?->can('view_any_project') ?? false;
+    }
 
-    // public static function canCreate(): bool
-    // {
-    //     return Filament::auth()->user()?->can('create_project');
-    // }
+    public function canCreate(): bool
+    {
+        return Filament::auth()->user()?->can('create_project') ?? false;
+    }
 
-    // public static function canEdit(Model $record): bool
-    // {
-    //     return Filament::auth()->user()?->can('update_project');
-    // }
+    public function canEdit(Model $record): bool
+    {
+        return Filament::auth()->user()?->can('update_project') ?? false;
+    }
 
-    // public static function canDelete(Model $record): bool
-    // {
-    //     return Filament::auth()->user()?->can('delete_project');
-    // }
+    public function canDelete(Model $record): bool
+    {
+        return Filament::auth()->user()?->can('delete_project') ?? false;
+    }
 
     public function form(Form $form): Form
     {
@@ -49,10 +50,14 @@ class TasksRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255),
                 Select::make('assigned_to')
+                    // ->disableOptionWhen(fn(): bool => true)
+                    // ->visible(fn($livewire) => !$livewire instanceof \Filament\Resources\RelationManagers\RelationManager)
                     ->label('Ditugaskan Ke')
+                    ->required()
                     ->options(User::all()->pluck('name', 'id'))
                     ->searchable(),
                 Select::make('status')
+
                     ->options([
                         'To Do' => 'To Do',
                         'In Progress' => 'In Progress',
@@ -72,7 +77,7 @@ class TasksRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('name')->searchable(),
                 TextColumn::make('user.name')
                     ->label('Ditugaskan ke')
                     ->placeholder("-"),
@@ -99,6 +104,6 @@ class TasksRelationManager extends RelationManager
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])->deferLoading();
     }
 }
