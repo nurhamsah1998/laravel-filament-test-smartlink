@@ -23,7 +23,7 @@ Tidak ada proses register untuk menambah user baru didalam aplikasi ini, penamba
         DB_USERNAME=root
         DB_PASSWORD=
 
--   lalu jalankan perintah berikut untuk proses installasi dan juga migrasi.
+-   lalu jalankan perintah berikut untuk proses installasi dan juga migrasi (biasanya akan memakan waktu cukup lama, tunggu sampai terminal exit sendiri.).
 
         composer run nurhamsah-smartlink
 
