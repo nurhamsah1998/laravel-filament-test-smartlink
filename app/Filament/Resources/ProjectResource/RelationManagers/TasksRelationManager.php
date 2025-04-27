@@ -50,8 +50,8 @@ class TasksRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255),
                 Select::make('assigned_to')
-                    // ->disableOptionWhen(fn(): bool => true)
-                    // ->visible(fn($livewire) => !$livewire instanceof \Filament\Resources\RelationManagers\RelationManager)
+                    ->visible(fn($livewire) => blank($livewire->mountedTableActionRecord))
+                    ->disabled(false)
                     ->label('Ditugaskan Ke')
                     ->required()
                     ->options(User::all()->pluck('name', 'id'))

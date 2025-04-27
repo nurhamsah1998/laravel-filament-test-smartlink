@@ -1,66 +1,76 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Hallo kak aku NURHAMSAH 👋🏼
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+ini adalah manual book untuk menjalankan aplikasi dan juga alur website kursus **JB COURSE**. Saya menggunakan [PGadmin 4](https://www.pgadmin.org/download/) (version 8.2) untuk management databse postgrenya.
+Dalam project ini terdapat 2 folder application **BE-kursus-jb** dan **FE-kursus-jb**. Silahkan buka 2 terminal yang merujuk pada masing masing directory.
 
-## About Laravel
+# Cara Menjalankan Aplikasi
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Step pada directory BE-kursus-jb
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   buat dulu database pada postgres dengan nama "**jago-bahasa-test**". berikut environment DB pada **BE-kursus-jb**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+        DB_CONNECTION=pgsql
+        DB_HOST=127.0.0.1
+        DB_PORT=5000
+        DB_DATABASE=jago-bahasa-test
+        DB_USERNAME=postgres
+        DB_PASSWORD=root
 
-## Learning Laravel
+-   lalu jalankan perintah berikut (jika server sudah berjalan pada langkah ini, berati work properly, jika tidak maka lanjut step selanjutnya) :
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+        composer run project-nurhamsah
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   jika terjadi error atau server tidak jalan bisa melakukan dengan manual :
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+        composer install
+        php artisan migrate
+        php artisan db:seed
+        php artisan serve
 
-## Laravel Sponsors
+-   jika perintah **php artisan serve** tidak berjalan dengan baik, bisa melakukan cara ini :
+        php -S localhost:8000 -t public
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+**NOTE: EXPETASI PORT SERVER LARAVEL BERJALAN PADA PORT 8000**
 
-### Premium Partners
+## Step pada directory FE-kursus-jb
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+-   untuk bagian ini harusnya simple dan tidak ada configurasi kusus. Aplikasi frontend ini berjalan pada port **5173** berikut terminalnya :
+        npm run project-nurhamsah
 
-## Contributing
+# Alur Kerja Aplikasi
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Singkatnya aplikasi ini merupakan aplikasi kursus online. Pengguna bisa melakukan register atau membuat akun baru untuk menerbitkan kursus mereka.
+Di dalam aplikasi kursus ini pengajar hanya bisa membuat materi berformatkan link video youtube dan juga dokumen (jpg, png, pdf).
+Terdapat 2 role dalam aplikasi ini yaitu **ADMIN** dan **CLIENT**.
 
-## Code of Conduct
+### ADMIN
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+-   membuat kursus
+-   membuat kategori kursus
+-   membuat materi kursus
+-   menghapus materi
+-   menghapus kursus
+-   view daftar kursus
 
-## Security Vulnerabilities
+### CLIENT
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+-   view list of kursus
+-   view detail kursus
 
-## License
+akun default :
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+      email : test@example.com
+      password: 12345678
+
+pada aplikasi ini saya menerapkan state management menggunakan [Jotai](https://jotai.org/), state management yang sangat simple seperti menggunakan useState pada React,
+dan untuk UI saya menggunakan [shadcn](https://ui.shadcn.com/) (tailwind base style) agar lebih cepat.
+Task yang saya kerjakan pada bagian "Poin Tambahan (Opsional)" yang tertera pada file Challenge, sebagai berikut:
+
+-   Menggunakan JWT.
+-   menggunakan state management (saya memakai jotai, saya harap ini sudah termasuk)
+-   Laman Landing Page untuk menampilkan daftar kursus ke customer.
+-   Menggunakan typescript untuk frontend (ReactJs)
+
+# Penutup
+
+Harapan saya dengan project simple ini bisa menjadi peluang saya untuk bisa bergabung dengan team Jago Bahasa. Terima kasih
