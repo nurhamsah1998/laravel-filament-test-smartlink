@@ -67,6 +67,9 @@ class ProjectResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->label('Nama Project')->searchable(),
+                TextColumn::make('user.name')
+                    ->label('Dibuat oleh')
+                    ->placeholder("-"),
                 TextColumn::make('tasks_count')->counts('tasks')
                     ->label('Total task'),
                 TextColumn::make('created_at')
