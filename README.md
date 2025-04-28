@@ -9,12 +9,11 @@ yang mana saya mengikuti intruksi dari [Dokument ini](https://drive.google.com/f
 Tidak ada proses register untuk menambah user baru didalam aplikasi ini, penambahan user bisa dilakukan oleh super admin. Untuk database saya menggunakan mysql 
 [(XAMPP)](https://www.apachefriends.org/download.html) dengan version v3.3.0.
 
-
-![1233333](https://github.com/user-attachments/assets/b177d8e3-dabe-4e56-9e39-2bb11dc22980)
-
-
 # Cara Menjalankan Aplikasi
--   pastikan server mysql dan apache jalan sesuai dengan gambar diatas lalu buat dulu database pada mysql dengan nama "**task-management-smartlink**". berikut environment (sudah saya include ke repositorinya & tidak perlu setting tambahan lagi)
+![1233333](https://github.com/user-attachments/assets/b177d8e3-dabe-4e56-9e39-2bb11dc22980)
+-   pastikan server mysql dan apache jalan sesuai dengan gambar diatas lalu buat dulu database pada mysql dengan nama "**task-management-smartlink**". berikut database dan environment (sudah saya include ke repositorinya & tidak perlu setting tambahan lagi).
+![w](https://github.com/user-attachments/assets/0476fd30-02c8-41b7-b6e4-75aa0938f325)
+
 
         DB_CONNECTION=mysql
         DB_HOST=127.0.0.1
@@ -48,7 +47,7 @@ Tidak ada proses register untuk menambah user baru didalam aplikasi ini, penamba
 ![111](https://github.com/user-attachments/assets/b502929c-e8f3-494a-ab1b-356a509ea936)
 
 
-jika ada pertanyaan bisa hubungi saya via whatsapp [Nurhamsah](https://wa.me/6281213221343)
+jika ada pertanyaan / kendala bisa hubungi saya via whatsapp [Nurhamsah](https://wa.me/6281213221343)
 
 
 
